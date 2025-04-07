@@ -1,10 +1,9 @@
 package org.softwaredev.sdweek2.controller;
 
 import org.softwaredev.sdweek2.model.Product;
+import org.softwaredev.sdweek2.requests.ProductRequest;
 import org.softwaredev.sdweek2.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +20,10 @@ public class ProductController {
     @GetMapping("")
     public List<Product>  getAllProducts() {
         return productService.getAllProducts();
+    }
+
+    @PostMapping("")
+    public String addProduct(@RequestBody ProductRequest productRequest) {
+        return productService.addProduct(productRequest);
     }
 }

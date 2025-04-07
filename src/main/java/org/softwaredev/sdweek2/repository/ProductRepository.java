@@ -17,4 +17,11 @@ public class ProductRepository {
   public List<Product> findAll() {
     return inMemoryProductRepository.getProducts();
   }
+
+  public Product save(Product product) {
+     int newProductId =  inMemoryProductRepository.getProducts().size() + 1;
+     product.setId(String.valueOf(newProductId));
+     inMemoryProductRepository.getProducts().add(product);
+     return product;
+  }
 }
