@@ -4,6 +4,7 @@ import org.softwaredev.sdweek2.model.Product;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ProductRepository {
@@ -19,9 +20,22 @@ public class ProductRepository {
   }
 
   public Product save(Product product) {
-     int newProductId =  inMemoryProductRepository.getProducts().size() + 1;
-     product.setId(String.valueOf(newProductId));
-     inMemoryProductRepository.getProducts().add(product);
-     return product;
+    Product foundProduct =  inMemoryProductRepository.getProducts().stream().filter(product1 ->  product1.getId().equals(product.getId())).findFirst().orElse(null);
+    if(foundProduct == null) {
+      int newProductId = inMemoryProductRepository.getProducts().size() + 1;
+      product.setId(String.valueOf(newProductId));
+      inMemoryProductRepository.getProducts().add(product);
+      return product;
+    }else {
+      foundProduct.setName(product.getName());
+      foundProduct.setPrice(product.getPrice());
+    }
+    return foundProduct;
+  }
+
+  public Optional<Product> findById(String id) {
+    return inMemoryProductRepository.getProducts().stream()
+        .filter(product -> product.getId().equals(id))
+        .findFirst();
   }
 }
