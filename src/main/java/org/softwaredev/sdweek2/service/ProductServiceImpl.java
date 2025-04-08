@@ -45,4 +45,14 @@ public class ProductServiceImpl implements ProductService {
         product =   productRepository.save(product);
         return  product.toString();
     }
+
+    @Override
+    public String deleteProduct(String productId) {
+        Optional<Product> optionalProduct =  productRepository.deleteProduct(productId);
+        if(optionalProduct.isEmpty()) {
+            return "There  is no product with id: " + productId;
+        }
+        Product product = optionalProduct.get();
+        return  product + " is deleted successfully";
+    }
 }

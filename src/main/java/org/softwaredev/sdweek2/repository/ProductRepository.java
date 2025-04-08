@@ -38,4 +38,16 @@ public class ProductRepository {
         .filter(product -> product.getId().equals(id))
         .findFirst();
   }
+
+  public Optional<Product> deleteProduct(String productId) {
+    if(productId == null) {
+      return Optional.empty();
+    }
+    Product foundProduct =  inMemoryProductRepository.getProducts().stream().filter(product1 ->  product1.getId().equals(productId)).findFirst().orElse(null);
+    if (foundProduct != null) {
+      inMemoryProductRepository.getProducts().remove(foundProduct);
+      return Optional.of(foundProduct);
+    }
+    return Optional.empty();
+  }
 }

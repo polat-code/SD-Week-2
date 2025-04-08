@@ -32,4 +32,9 @@ public class ProductController {
     public String updateProduct(@RequestBody UpdateProductRequest updateProductRequest) {
         return productService.updateProduct(updateProductRequest);
     }
+
+    @DeleteMapping("")
+    public String deleteProduct(@RequestParam("productId") String productId) {
+        return productService.deleteProduct(productId);
+    }
 }

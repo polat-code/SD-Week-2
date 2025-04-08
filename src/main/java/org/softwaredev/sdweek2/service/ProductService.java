@@ -12,4 +12,6 @@ public interface ProductService {
     String addProduct(ProductRequest productRequest);
 
     String updateProduct(UpdateProductRequest updateProductRequest);
+
+    String deleteProduct(String productId);
 }
